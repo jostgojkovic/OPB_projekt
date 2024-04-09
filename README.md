@@ -5,4 +5,3 @@
 
 ## ER diagram
 
-![](C:\Users\38641\Documents\_FMF FAKS\baze.png)
