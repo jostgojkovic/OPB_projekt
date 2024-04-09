@@ -18,6 +18,7 @@ class Narocilo:
     id: int = field(default=0)
     status: str = field(default="")
     cena: int = field(default=0)
+    stranka_id: int = field(default=0)
 
 @dataclass
 class Rezervacija:
@@ -25,6 +26,7 @@ class Rezervacija:
     stevilo_gostov: int = field(default=0)
     id_stranke: int = field(default=0)
     cas_rezervacije: datetime = field(default=datetime.now())
+    miza_id: int = field(default=0)
 
 
 @dataclass
@@ -42,3 +44,15 @@ class Vsebina_narocil:
     meni_id: int = field(default=0)
     cena: int = field(default=0)
 
+
+@dataclass
+class Sef:
+    id: int = field(default=0)
+    name: str = field(default="")
+    username: str = field(default="")
+    password: str = field(default="")
+
+@dataclass
+class Miza:
+    id: int = field(default=0)
+    kapaciteta: int = field(default=0)
