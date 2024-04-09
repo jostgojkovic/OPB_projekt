@@ -5,3 +5,4 @@
 
 ## ER diagram
 
+![ER diagram](baze.png)
