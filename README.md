@@ -1,4 +1,4 @@
-# OPB_projekt-Restavracija
+# Restavracija
 
 ## Opis projekta
 
