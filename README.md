@@ -8,4 +8,4 @@
 
 ## ER diagram
 
-![ER_diagram](ER_diag-1.png)
+![ER_diagram](ER_diag.png)
