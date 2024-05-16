@@ -1,4 +1,4 @@
-# Restavracija
+# Žarbanija
 
 ## Opis projekta
 
@@ -9,10 +9,6 @@
 
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jostgojkovic/Zarbanija.git/main?urlpath=proxy%2F8080)
-
-.. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/jostgojkovic/Zarbanija.git/main?urlpath=proxy%2F8080
-
 ## ER diagram
 
 ![ER_diagram](ER_diag.png)
