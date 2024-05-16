@@ -10,8 +10,7 @@ import os
 
 #from pandas import DataFrame
 #from re import sub
-
-import Data.auth as auth  
+import Data.auth_public as auth  
 from datetime import date
 
 DB_PORT = os.environ.get('POSTGRES_PORT', 5432)

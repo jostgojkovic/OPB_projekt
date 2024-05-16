@@ -86,19 +86,10 @@ def komentar_post():
     lst = cur.fetchall()[0]
     id_user = lst[0]
     content = request.forms.get('content')
-    my_new_string = re.sub('Ä', 'č', content)
-    my_new_string = re.sub('Å½', 'Ž', my_new_string)
-    my_new_string = re.sub('Å¾', 'ž', my_new_string)
-    my_new_string = re.sub('Å¡', 'š', my_new_string)
-    my_new_string = re.sub('Å', 'Š', my_new_string)
-    if my_new_string[0] == "č":
-        my_new_string = "Č"+ my_new_string[1:]
-    for i in range(len(my_new_string)-2):
-        if my_new_string[i] == "Š":
-            my_new_string = my_new_string[:i+1]+my_new_string[i+2:]
+    content = request.forms.content
     
     cur.execute(""" INSERT INTO komentar ("vsebina", "stranka_id") 
-                    VALUES (%s, %s)""", (my_new_string, id_user))
+                    VALUES (%s, %s)""", (content, id_user))
     conn.commit()
     redirect(url('komentar_get'))
     
