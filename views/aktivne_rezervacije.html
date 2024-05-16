@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+       table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 10px;
+        }
+        td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4; 
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+            margin: 0 10px; 
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Pregled rezervacij</h1>
+        <p></p>
+    </header>
+    <nav>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+    <!-- {{rez}}  -->
+
+    <!-- {{idji}}<br>
+    {{jedi_vse}} -->
+       <table ellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr>
+                <th>Ime</th>
+                <th>Število gostov</th>
+                <th>Začetek rezervacije</th>
+                <th>Konec rezervacije</th>
+                <th>Jedi</th>
+                <th>Cena</th>
+            </tr>
+        </thead>
+        <tbody>
+            % for rez in rez:
+
+            <tr>
+                <td>{{ rez[1] }}</td>
+                <td>{{ rez[2] }}</td>
+                <td>{{ rez[3] }}</td>
+                <td>{{ rez[4] }}</td>
+
+                <td>
+                     {{', '.join(item[0] for item in rez[5])}}
+                    
+                </td>
+                <td> {{sum(item[1] for item in rez[5])+4}}</td>
+            </tr>
+            % end
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,7 @@
+psycopg2-binary
+pandas
+bottle
+dataclasses-json
+bcrypt
+psycopg2
+jupyter-server-proxy

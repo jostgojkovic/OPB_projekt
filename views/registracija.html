@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+        }
+        nav {
+            background: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .form-label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .form-control {
+            width: 300px;
+            padding: 10px;
+            margin: auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dobrodošli v Žarbaniji  </h1>
+        <p>Vaše najljubše mesto za gourmet jedi</p>
+    </header>
+    
+    <div class="form-container">
+        <form action="{{url('registracija_post')}}" method="post">
+            <label for="ime" class="form-label">Ime:</label>
+            <input id="ime" name="ime" type="text" class="form-control" required>
+
+            <label for="uporabnisko_ime" class="form-label">Uporabniško ime:</label>
+            <input id="uporabnisko_ime" name="uporabnisko_ime" type="text" class="form-control" required>
+
+            <label for="geslo" class="form-label">Geslo:</label>
+            <input id="geslo" name="geslo" type="password" class="form-control" required>
+
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+
+        <form action="{{url('prijava_get')}}" method="GET">
+            <p>Si že član? <button type="submit" class="btn btn-link">Prijava</button></p>
+        </form>
+    </div>
+</body>
+</html>

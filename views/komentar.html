@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            text-align: center;
+            background-color: #f4f4f4; 
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px 0; 
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+            margin: 0 10px; 
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        form {
+            max-width: 700px; 
+            margin: auto; 
+            padding: 10px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            border-radius: 5px;
+        }
+        textarea {
+            width: 100%; 
+            height: 100px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+        input[type="submit"] {
+            background-color: #ff533d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #e04830;
+        }
+        .post {
+            background-color: #ffffff;
+            padding: 10px;
+            margin: 20px auto; 
+            max-width: 700px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            border-radius: 5px;
+        }
+        .post hr {
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Dobrodošli v Žarbaniji  </h1>
+        <p>Vaše najljubše mesto za gourmet jedi</p>
+    </header>
+    <nav>
+        <a class="nav-link" href="{{url('gost_rezervacija_get')}}">Rezervacija</a>
+        <a class="nav-link" href="{{url('komentar_get')}}">Komentarji</a>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+
+    <form action="{{url('komentar_post')}}" method="POST">
+        <textarea name="content" placeholder="Tukaj napišite svoj komentar..." required></textarea>
+        <input type="submit" value="Objavi">
+    </form>
+ 
+
+    
+
+    <!-- Posts -->
+    % for i in range(len(posts)):
+    <div class="post">
+        <h3>{{ posts[i][1] }}</h3>
+        <p>Objavil: {{ list(skupaj)[i][1] }}</p>
+        <hr>
+    </div>
+    %end
+
+</body>
+</html>

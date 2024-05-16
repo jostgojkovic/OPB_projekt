@@ -5,6 +5,7 @@ from datetime import datetime
 class Komentar:
     id: int = field(default=0)
     vsebina: str = field(default="")
+    stranka_id: int=field(default=0)
 
 @dataclass
 class Meni:
@@ -14,18 +15,12 @@ class Meni:
     cena: int = field(default=0)
 
 @dataclass
-class Narocilo:
-    id: int = field(default=0)
-    status: str = field(default="")
-    cena: int = field(default=0)
-    stranka_id: int = field(default=0)
-
-@dataclass
 class Rezervacija:
     id: int = field(default=0)
     stevilo_gostov: int = field(default=0)
     id_stranke: int = field(default=0)
     cas_rezervacije: datetime = field(default=datetime.now())
+    konec_rezervacije: datetime = field(default=datetime.now())
     miza_id: int = field(default=0)
 
 
@@ -37,10 +32,11 @@ class Stranka:
     password: str = field(default="")
 
 
+
 @dataclass
-class Vsebina_narocil:
+class Vsebina_rezervacije:
     id: int = field(default=0)
-    narocilo_id: int = field(default=0)
+    rezervacija_id: int = field(default=0)
     meni_id: int = field(default=0)
     cena: int = field(default=0)
 

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 4px solid #ba4230;
+        }
+        nav {
+            background: #333;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .table-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 10px;
+        }
+        td {
+            text-align: left;
+            padding: 12px 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        button {
+            margin: 20px auto;
+            display: block;
+            padding: 10px 30px;
+            font-size: 16px;
+            background-color: #ff533d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        button:hover {
+            background-color: #e04e37;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dobrodošli v Žarbaniji  </h1>
+        <p>Vaše najljubše mesto za gourmet jedi</p>
+    </header>
+    <nav>
+        <a class="nav-link" href="{{url('gost_rezervacija_get')}}">Rezervacija</a>
+        <a class="nav-link" href="{{url('komentar_get')}}">Komentarji</a>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+    <div class="table-container">
+        <div class ="table-left">
+     <table cellpadding="0" cellspacing="0"  id="customers" >
+        <tr> <th colspan="4"> Predjedi</th></tr>
+
+          <form action="{{url('gost_narocilo_post')}}" method="POST">
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[0:6]:
+                <tr>
+                    
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td >{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                    <td><input type="number" name="kolicina{{id}}" min="1" value="1" style="width: 50px;"></td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Glavne jedi</th></tr>
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[7:19]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                    <td><input type="number" name="kolicina{{id}}" min="1" value="1" style="width: 50px;"></td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Sladice</th></tr>
+   
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[20:26]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                    <td><input type="number" name="kolicina{{id}}" min="1" value="1" style="width: 50px;"></td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Pijače</th></tr>
+   
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[27:]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                    <td><input type="number" name="kolicina{{id}}" min="1" value="1" style="width: 50px;"></td>
+                </tr>
+            %end
+          <button type="submit", value="Submit">Dodaj </button>
+                
+        </form>
+        
+     </table>
+     </div>
+     <div class=" "table-right>
+
+</body>
+</html>

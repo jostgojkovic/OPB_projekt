@@ -17,10 +17,8 @@ T = TypeVar(
     "T",
     Komentar,
     Meni,
-    Narocilo,
     Rezervacija,
     Stranka,
-    Vsebina_narocil
 )
 
 class Repo:

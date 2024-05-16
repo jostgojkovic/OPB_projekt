@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Restaurant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+        }
+        nav {
+            background: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Delicious Bites</h1>
+        <p>Your favorite place for gourmet dishes</p>
+    </header>
+    <nav>
+        <a class="nav-link" href="{{url('gost_rezervacija_get')}}">Rezervacija</a>
+        <a class="nav-link" href="{{url('komentar_get')}}">Komentarji</a>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+
+    <div class="table-container">
+        <div class ="table-left">
+     <table cellpadding="0" cellspacing="0" border="1" id="customers" >
+        <tr> <th colspan="4"> Predjedi</th></tr>
+
+          <form action="{{url('gost_narocilo_post')}}" method="POST">
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[0:6]:
+                <tr>
+                    
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td >{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Glavne jedi</th></tr>
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[7:19]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Sladice</th></tr>
+   
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[20:26]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                </tr>
+            %end
+            <tr> <th colspan="4"> Pijače</th></tr>
+   
+            %for (id, ime_jedi,opis_jedi,cena) in produkti_nova[20:26]:
+                <tr>
+                    <td>{{ime_jedi}}</td>
+                    <td>{{opis_jedi}}</td>
+                    <td>{{cena}}</td>
+                    <td> 
+                        <!-- <input type="hidden" value="{{ime_jedi}}" name="ime">
+                        <input type="hidden" value="{{opis_jedi}}" name="opis">
+                        <input type="hidden" value="{{cena}}" name="cena"> -->
+                        <input type="checkbox" value="{{id}}" name="izbira">
+                    </td>
+                </tr>
+            %end
+          <button type="submit", value="Submit">Dodaj </button>
+                
+        </form>
+        
+     </table>
+     </div>
+     <div class=" "table-right>
+
+</body>
+</html>
+
+
+@post("/gost/narocilo/")
+@cookie_required
+def gost_narocilo_post():
+    id_stranke = int(request.cookies.get("id"))
+    izbira = request.forms.getall("izbira")
+    cur.execute(""" SELECT "id" FROM rezervacija WHERE "id_stranke" = %s""", [id_stranke])
+    lst = cur.fetchall()    
+    id_rezervacije = lst[-1][0]
+    n = 0
+    cene = []
+    imena_jedi = []
+    for i in izbira:
+        cur.execute(""" SELECT "cena","ime_jedi" FROM meni WHERE "id"=%s """, [int(izbira[n])])
+        lst2 = cur.fetchall()
+        cena = lst2[0][0]
+        ime = lst2[0][1]
+        vsebina = Vsebina_rezervacije(rezervacija_id=id_rezervacije, meni_id=int(izbira[n]),cena=cena)
+        repo.dodaj_vsebina_rezervacije(vsebina)
+        cene.append(cena)
+        imena_jedi.append(ime)
+        n=n+1
+    cur.execute(""" SELECT * FROM rezervacija WHERE "id_stranke" = %s""", [id_stranke])
+    vse = cur.fetchall()[-1]
+    return template("koncano_narocilo.html", izbira=vse, imena_jedi =imena_jedi, cene=cene)
+
+@get('/pregled_rezervacij')
+@cookie_required_sef
+def aktivne_rezervacije_get():
+    cur.execute("""
+        SELECT rezervacija."id", stranka."username", rezervacija."stevilo_gostov", rezervacija."cas_rezervacije", rezervacija."konec_rezervacije"
+        FROM rezervacija
+        LEFT JOIN stranka on rezervacija."id_stranke" = stranka."id"
+        WHERE rezervacija."cas_rezervacije" > CURRENT_TIMESTAMP
+        ORDER BY rezervacija."cas_rezervacije" ASC""")
+    rez = cur.fetchall()
+    idji = [l[0] for l in rez]
+    jedi_vse = []
+    for i in idji:
+        cur.execute("""
+            SELECT DISTINCT meni."ime_jedi", meni."cena" FROM vsebina_rezervacije
+                    LEFT JOIN meni ON vsebina_rezervacije."meni_id" = meni."id"
+                    WHERE vsebina_rezervacije."rezervacija_id" = %s
+                    """, [i])
+        jedi = cur.fetchall()
+        jedi_vse.append(jedi)
+    for res, hrana in zip(rez, jedi_vse):
+        res.append(hrana)
+    for sublist in rez:
+        for i in range(len(sublist)):
+            if isinstance(sublist[i], datetime):
+                sublist[i] = sublist[i].strftime("%d. %m. %Y ob %H:%M uri")
+
+    return template('aktivne_rezervacije.html', rez = rez, idji=idji, jedi_vse=jedi_vse)
+

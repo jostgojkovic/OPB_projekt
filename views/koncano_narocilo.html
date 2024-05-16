@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #ff533d;
+            color: white;
+            padding: 20px 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+        nav a:hover {
+            background-color: #444;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto; 
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .button {
+            background-color: #ff533d;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #e04830;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Dobrodošli v Žarbaniji  </h1>
+        <p>Vaše najljubše mesto za gourmet jedi</p>
+    </header>
+    <nav>
+        <a class="nav-link" href="{{url('gost_rezervacija_get')}}">Rezervacija</a>
+        <a class="nav-link" href="{{url('komentar_get')}}">Komentarji</a>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+
+% from datetime import datetime
+% vsebina = [item.strftime("%d. %m. %Y ob %H:%M") if isinstance(item, datetime) else item for item in izbira]
+
+<h3> Uspešno ste rezervirali mizo za {{izbira[1]}} ljudi. </h3>
+
+<h3>Vaša rezervacija se začne {{vsebina[3]}} in konča {{vsebina[5]}}. </h3><br>
+
+<h2>Naročili ste:</h2>
+
+<table>
+    <tr>
+        <th>Jed</th>
+        <th>Cena [€]</th>
+    </tr>
+
+    % for jed, cena, k in zip(imena_jedi, cene, kolicina):
+    <tr>
+        <td>{{ f'{jed} x{k}' }}</td>
+        <td>{{ cena*k }}</td>
+    </tr>
+    %end
+    <tr>
+        <td> Strošek rezervacije</td>
+        <td> 4 </td>
+    </tr>
+    <tr>  
+        <th>Skupaj</th>
+        <th>{{sum(cena * kolicina for cena, kolicina in zip(cene, kolicina)) + 4}}</th>
+    </tr>
+</table>
+
+
+<br>
+<h1>Hvala!</h1>
+
+<footer>
+    <p>&copy; 2024 Žarbanija. Vse pravice pridržane.</p>
+</footer>
+
+</body>
+</html>

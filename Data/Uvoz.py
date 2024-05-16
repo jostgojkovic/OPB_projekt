@@ -21,6 +21,6 @@ def uvozi_v_sql(df, ime):
     repo.df_to_sql_create(df, ime, add_serial=True, use_camel_case=False)
     repo.df_to_sql_insert(df, ime, use_camel_case=False)
 
-# uvozi_v_sql(df2, "meni") ne poganjaj te vrstice
+#uvozi_v_sql(df2, "meni") #ne poganjaj te vrstice
 
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dobrodošli v naši restavraciji!</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #fafafa;
+        }
+        header {
+            background-color: #ff533d;
+            color: #ffffff;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav {
+            background: #333;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        nav a:hover, nav a:focus {
+            background-color: #555;
+        }
+        section {
+            padding: 20px;
+            margin: 0 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dobrodošli v Žarbaniji  </h1>
+        <p>Vaše najljubše mesto za gourmet jedi</p>
+    </header>
+    <nav>
+        <a class="nav-link" href="{{url('gost_rezervacija_get')}}">Rezervacija</a>
+        <a class="nav-link" href="{{url('komentar_get')}}">Komentarji</a>
+        <a class="nav-link" href="/odjava">Odjava</a>
+    </nav>
+     <section id="menu">
+        <h2>Naš jedilnik</h2>
+        <p>Raziščite naš širok nabor jedi, od tradicionalnih klasik do specialitet našega mojsterskega kuharja.</p>
+    </section>
+    <section id="about">
+        <h2>O nas</h2>
+        <p>Žarbanija že od leta 1999 strežemo skupnosti, ponujamo izbrano kulinarično doživetje.</p>
+    </section>
+    <section id="contact">
+        <h2>Kontaktirajte nas</h2>
+        <p>Za vprašanja nas kontaktirajte po elektronski pošti na naslov kontakt@kontakt.com ali pokličite na (123) 456-7890.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Žarbanija. Vse pravice pridržane.</p>
+    </footer>
+</body>
+</html>
